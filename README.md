@@ -15,6 +15,7 @@
 ## 兼容性
 
 - Paper 1.20.1 - 1.21.x
+- Paper衍生服务端包括Leaves和Leaf
 
 ## 安装
 
@@ -22,6 +23,7 @@
 2. 放入服务器的 `plugins/` 目录
 3. 重启服务器或执行 `/reload` 加载插件
 4. 插件自动生成 `plugins/BetterList/config.yml` 配置文件
+5. 好了享受吧
 
 ## 命令
 
@@ -61,7 +63,7 @@ gamemode-labels:
 mvn clean package
 ```
 
-构建产物位于 `target/better-list-1.3.0.jar`。
+构建产物位于 `target/better-list-1.x.0.jar`。
 
 ## 预览
 
@@ -78,5 +80,5 @@ mvn clean package
 MIT License
 
 ## 作者
-
+tips：不会经常更新或添加新功能可以二创
 **灯塔照耀海洋**
