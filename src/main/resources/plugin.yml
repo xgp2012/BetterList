@@ -1,0 +1,20 @@
+name: BetterList
+version: '${project.version}'
+main: com.betterlist.BetterListPlugin
+api-version: '1.20'
+description: 替代原生 /list 指令，显示在线玩家、在线时长、游戏模式和管理员状态，支持排序和分页
+author: 灯塔照耀海洋
+
+commands:
+  list:
+    description: 显示在线玩家列表（仅自己可见）
+    usage: /list [页码]
+    permission: bukkit.command.list
+
+permissions:
+  bukkit.command.list:
+    default: true
+    description: 允许使用 /list 命令
+  betterlist.admin:
+    default: op
+    description: 在 /list 中标记为管理员
