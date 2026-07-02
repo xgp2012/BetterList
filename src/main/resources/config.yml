@@ -1,10 +1,9 @@
 # ==========================================
-# BetterList 配置文件
+# CS-BetterList 配置文件
 # 作者：灯塔照耀海洋
 # ==========================================
 
 # 拥有此权限的玩家会被标记为管理员
-# 默认管理员 = OP 或拥有 betterlist.admin 权限的玩家
 admin-permission: "betterlist.admin"
 
 # 每页显示的玩家数量（默认 10）
@@ -12,10 +11,3 @@ players-per-page: 10
 
 # 排序方式: "playtime" (在线时长降序) 或 "name" (玩家名升序)
 sort-by: "playtime"
-
-# 游戏模式显示标签
-gamemode-labels:
-  survival: "[生存]"
-  creative: "[创造]"
-  adventure: "[冒险]"
-  spectator: "[旁观]"

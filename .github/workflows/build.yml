@@ -1,0 +1,104 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:  # 支持手动触发
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Grant execute permission for mvnw
+        run: chmod +x mvnw
+        if: hashFiles('mvnw') != ''
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cs-betterlist-jar
+          path: target/cs-betterlist-*.jar
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: cs-betterlist-jar
+          path: target/
+
+      - name: Get version and tag
+        id: version
+        run: |
+          VERSION=$(grep '<version>' pom.xml | head -1 | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          TAG="v$VERSION"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Release version: $VERSION"
+
+      - name: Check if release tag exists
+        id: check_tag
+        run: |
+          TAG="${{ steps.version.outputs.tag }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Tag $TAG already exists, skipping release."
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub Release
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "CS-BetterList v${{ steps.version.outputs.version }}"
+          tag_name: ${{ steps.version.outputs.tag }}
+          body: |
+            ## CS-BetterList v${{ steps.version.outputs.version }}
+
+            替代原生 /list 指令的 Minecraft Paper 插件，提供更丰富的在线玩家信息显示。
+
+            ### 功能
+            - 在线玩家列表增强（名称、游戏模式、Ping、在线时长）
+            - 管理员红色高亮标记
+            - 按在线时长或名称排序
+            - 分页显示 + 可点击翻页
+            - 悬浮提示查看详情
+            - Ping 延迟彩色标识
+
+            ### 安装
+            1. 下载下方 `cs-betterlist-${{ steps.version.outputs.version }}.jar`
+            2. 放入服务器 `plugins/` 目录
+            3. 重启服务器或执行 `/reload`
+          files: target/cs-betterlist-${{ steps.version.outputs.version }}.jar
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
