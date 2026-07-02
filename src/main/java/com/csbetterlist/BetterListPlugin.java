@@ -82,7 +82,6 @@ public class BetterListPlugin extends JavaPlugin implements Listener {
 
     private void printStartupBanner() {
         var logger = getLogger();
-        var p = NamedTextColor.PLAYER_INPUT;
 
         var banner = Component.text()
                 .append(Component.text(" ╔══════════════════════════════════════╗", NamedTextColor.DARK_AQUA))
@@ -118,7 +117,7 @@ public class BetterListPlugin extends JavaPlugin implements Listener {
                 .build();
 
         logger.info("");
-        logger.info(banner);
+        logger.info(banner.toString());
         logger.info(Component.text("已启用：在线玩家列表增强插件", NamedTextColor.GREEN).toString());
         logger.info(Component.text("作者：灯塔照耀海洋", NamedTextColor.GRAY).toString());
         logger.info("");
