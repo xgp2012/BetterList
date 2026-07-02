@@ -35,6 +35,24 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
+      - name: Determine version
+        id: version
+        run: |
+          POM_VERSION=$(grep '<version>' pom.xml | head -1 | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="$POM_VERSION"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Release version: $VERSION"
+
+      - name: Rename jar to target version
+        run: |
+          JAR_NAME=$(ls target/cs-betterlist-*.jar | head -1)
+          JAR_BASE=$(basename "$JAR_NAME" .jar)
+          mv "$JAR_NAME" "target/${JAR_BASE}-${{ steps.version.outputs.version }}.jar"
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -56,7 +74,7 @@ jobs:
           name: cs-betterlist-jar
           path: target/
 
-      - name: Determine version
+      - name: Determine version and tag
         id: version
         run: |
           POM_VERSION=$(grep '<version>' pom.xml | head -1 | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
