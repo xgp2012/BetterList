@@ -44,7 +44,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout repository
@@ -56,10 +56,15 @@ jobs:
           name: cs-betterlist-jar
           path: target/
 
-      - name: Get version and tag
+      - name: Determine version
         id: version
         run: |
-          VERSION=$(grep '<version>' pom.xml | head -1 | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
+          POM_VERSION=$(grep '<version>' pom.xml | head -1 | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="$POM_VERSION"
+          fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           TAG="v$VERSION"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
