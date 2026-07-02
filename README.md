@@ -1,4 +1,4 @@
-# BetterList
+# CS-BetterList
 
 替代 Minecraft Paper 服务端原生 `/list` 指令的插件，提供更丰富的在线玩家信息展示。
 
@@ -14,15 +14,15 @@
 
 ## 兼容性
 
-- Paper 1.20.1 - 1.21.x
-- Paper衍生服务端包括Leaves和Leaf
+- Paper 1.13 - 1.21.x
+- Paper 衍生服务端包括 Leaves 和 Leaf
 
 ## 安装
 
-1. 下载 `better-list-1.3.0.jar`
+1. 下载 `cs-betterlist-1.3.0.jar`
 2. 放入服务器的 `plugins/` 目录
 3. 重启服务器或执行 `/reload` 加载插件
-4. 插件自动生成 `plugins/BetterList/config.yml` 配置文件
+4. 插件自动生成 `plugins/CS-BetterList/config.yml` 配置文件
 5. 好了享受吧
 
 ## 命令
@@ -47,13 +47,6 @@ players-per-page: 10
 
 # 排序方式: "playtime" (在线时长降序) 或 "name" (玩家名升序)
 sort-by: "playtime"
-
-# 游戏模式显示标签
-gamemode-labels:
-  survival: "[生存]"
-  creative: "[创造]"
-  adventure: "[冒险]"
-  spectator: "[旁观]"
 ```
 
 ## 构建
@@ -63,7 +56,7 @@ gamemode-labels:
 mvn clean package
 ```
 
-构建产物位于 `target/better-list-1.x.0.jar`。
+构建产物位于 `target/cs-betterlist-1.x.0.jar`。
 
 ## 预览
 
@@ -80,5 +73,6 @@ mvn clean package
 MIT License
 
 ## 作者
+
 tips：不会经常更新或添加新功能可以二创
 **灯塔照耀海洋**

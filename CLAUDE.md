@@ -37,9 +37,9 @@ target/cs-betterlist-1.x.0.jar
 
 ## 开发注意事项
 
-- **API**: 基于 Paper API 1.20.1（`provided` scope），不打包依赖
+- **兼容性**: Paper 1.13 - 1.21.x（`api-version: '1.13'`）
 - **文字**: 使用 `net.kyori.adventure` 库构建 Component 树（颜色、点击事件、悬浮提示）
 - **配置读取**: `playersPerPage` 和 `sortBy` 在 `onEnable()` 时从 config.yml 读取，传入 ListCommand 构造函数，之后不可变
-- **配置未使用字段**: `config.yml` 中有 `admin-permission` 和 `gamemode-labels`，但当前代码中未实际读取使用（admin 判断硬编码为 `betterlist.admin`，模式标签硬编码在 ListCommand 中）
+- **配置未使用字段**: `config.yml` 中有 `admin-permission` 字段但未实际读取使用（admin 判断硬编码为 `betterlist.admin`）
 - **排序**: 默认按在线时长降序，`sort-by: "name"` 时按名称字母序
 - **分页**: 页码从 1 开始，非法输入回退到第一页

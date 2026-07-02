@@ -1,7 +1,7 @@
 name: CS-BetterList
 version: '${project.version}'
 main: com.csbetterlist.BetterListPlugin
-api-version: '1.20'
+api-version: '1.13'
 description: 替代原生 /list 指令，显示在线玩家、在线时长、游戏模式和管理员状态，支持排序和分页
 author: 灯塔照耀海洋
 
