@@ -44,8 +44,6 @@
                 <configuration>
                     <source>21</source>
                     <target>21</target>
-                    <fork>true</fork>
-                    <executable>D:\JAVA21\bin\javac.exe</executable>
                 </configuration>
             </plugin>
         </plugins>
