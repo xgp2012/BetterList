@@ -37,7 +37,7 @@ target/cs-betterlist-1.x.0.jar
 
 ## 开发注意事项
 
-- **兼容性**: Paper 1.13 - 1.21.x（`api-version: '1.13'`）
+- **兼容性**: Paper 1.14 - 1.21.x（`api-version: '1.14'`）
 - **文字**: 使用 `net.kyori.adventure` 库构建 Component 树（颜色、点击事件、悬浮提示）
 - **配置读取**: `playersPerPage` 和 `sortBy` 在 `onEnable()` 时从 config.yml 读取，传入 ListCommand 构造函数，之后不可变
 - **配置未使用字段**: `config.yml` 中有 `admin-permission` 字段但未实际读取使用（admin 判断硬编码为 `betterlist.admin`）

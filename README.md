@@ -14,7 +14,7 @@
 
 ## 兼容性
 
-- Paper 1.13 - 1.21.x
+- Paper 1.14 - 1.21.x
 - Paper 衍生服务端包括 Leaves 和 Leaf
 
 ## 安装
